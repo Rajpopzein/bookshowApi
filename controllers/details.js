@@ -55,7 +55,6 @@ export const updatePost = async(req,res)=>{
     try{
         await client.connect()
         const idss = req.params
-        console.log(idss)
         const newvalue = {$set:req.body}
         const upvalue = await collection.updateOne(idss,newvalue)
         const updatedvalue = await collection.findOne({id:idss.id})
