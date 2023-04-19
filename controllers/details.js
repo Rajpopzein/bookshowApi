@@ -50,3 +50,25 @@ export const deletePost = async(req,res) =>{
         await client.close()
     }
 }
+
+export const updatePost = async(req,res)=>{
+    try{
+        await client.connect()
+        const idss = req.params
+        console.log(idss)
+        const newvalue = {$set:req.body}
+        const upvalue = await collection.updateOne(idss,newvalue)
+        const updatedvalue = await collection.findOne({id:idss.id})
+        if(upvalue.matchedCount > 0)
+        {
+            res.status(200).json({status:'true',message:'data updated',data:updatedvalue})
+        }
+        else{
+            res.status(200).json({status:'false',message:'data not updated'})
+        }
+
+    }
+    finally{
+        await client.close()
+    }
+}
