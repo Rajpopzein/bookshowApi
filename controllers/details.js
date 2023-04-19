@@ -57,7 +57,7 @@ export const updatePost = async(req,res)=>{
         const idss = req.params
         const newvalue = {$set:req.body}
         const upvalue = await collection.updateOne(idss,newvalue)
-        const updatedvalue = await collection.findOne({id:idss.id})
+        const updatedvalue = await collection.findOne({id:idss.id},{ projection: { _id: 0}})
         if(upvalue.matchedCount > 0)
         {
             res.status(200).json({status:'true',message:'data updated',data:updatedvalue})
